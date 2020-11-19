@@ -32,11 +32,11 @@
                     return this.responseText;
                 }
             };
-            xhttp.open("GET", file, true);
+            xhttp.open("GET", "blogposts.json", true);
             xhttp.send();
         }
 
-        alert(loadFile("blogposts.json"));
+        alert(loadFile("/blogposts.json"));
     </script>
 </body>
 
