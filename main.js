@@ -1,3 +1,5 @@
+// The includeHTML function - credit to W3Schools
+
 function includeHTML() {
     var z, i, elmnt, file, xhttp;
     /*loop through a collection of all HTML elements:*/

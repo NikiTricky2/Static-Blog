@@ -1,3 +1,9 @@
+<!--
+    I don't like putting comments, but this time i will do '-'
+
+    Also, if you didn't notice THIS IS A BLOG IN A STATIC FRAMEWORK
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,26 +23,48 @@
 
     <h1>Hello! My name is Nikola!</h1>
     <p>Nice to meet you! I'm a hobby full-stack programmer, living in Bulgaria. I decided to make a small website with a blog and latest projects.</p>
+    <br>
+    <h3>Latest posts</h3>
 
+    <!-- Blog list -->
+    <div id="list"></div>
+
+    <!-- Just an element to exchane data because some strange bugs -->
+    <pre id="dataExchange" style="visibility: hidden;"></pre>
+
+    <!-- More Boostrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
     <script src="/main.js"></script>
     <script>
+        // Add the navbar
         includeHTML();
 
-        function loadFile(file) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    return this.responseText;
+        // Read the blogposts
+        var posts
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("GET", "blogposts.json", false);
+        rawFile.onreadystatechange = function() {
+            if (rawFile.readyState === 4) {
+                if (rawFile.status === 200 || rawFile.status == 0) {
+                    // This variable does not to be global for some reason 
+                    var posts = rawFile.response
+                        // So i fix this in a verry tacky way
+                    document.getElementById("dataExchange").innerHTML = posts
                 }
-            };
-            xhttp.open("GET", "blogposts.json", true);
-            xhttp.send();
+            }
         }
+        rawFile.send(null);
 
-        alert(loadFile("/blogposts.json"));
+        // Read the content and delete the element
+        posts = JSON.parse(document.getElementById("dataExchange").innerHTML)
+            //document.getElementById("dataExchange").innerHTML.parentNode.removeChild(document.getElementById("dataExchange"));
+
+        // Just a plain forEach loop printing the posts
+        posts['posts'].forEach(post => {
+            document.getElementById("list").innerHTML = post.name;
+        });
     </script>
 </body>
 
