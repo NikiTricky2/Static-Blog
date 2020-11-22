@@ -1,16 +1,10 @@
-<!--
-    I don't like putting comments, but this time i will put them '-'
-
-    Also, if you didn't notice THIS IS A BLOG IN A STATIC FRAMEWORK
--->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article</title>
 
     <link rel="stylesheet" href="main.css">
 
@@ -19,16 +13,9 @@
 </head>
 
 <body>
-    <div include-html="/navbar.html"></div>
+    <div include-html="navbar.html"></div>
     <br>
-
-    <h1>Hello! My name is Nikola!</h1>
-    <p>Nice to meet you! I'm a hobby full-stack programmer, living in Bulgaria. I decided to make a small website with a blog and latest projects.</p>
-    <br>
-    <h2>Latest posts</h2>
-
-    <!-- Blog list -->
-    <div id="list"></div>
+    <div id="postcontent"></div>
 
     <!-- Just an element to exchane data because some strange bugs -->
     <div id="dataExchange" style="display: none;"></div>
@@ -39,8 +26,11 @@
 
     <script src="/main.js"></script>
     <script>
-        // Add the navbar
-        includeHTML();
+        includeHTML()
+
+        // Read the id from the url
+        var params = new URLSearchParams(location.search);
+        var id = params.get('id')
 
         // Read the blogposts
         var posts
@@ -61,17 +51,16 @@
         // Read the content
         posts = JSON.parse(document.getElementById("dataExchange").innerHTML)
 
-
-        // Just a plain forEach loop printing the posts
-        posts['posts'].forEach(post => {
-            document.getElementById("list").innerHTML = `
-            <div class="container bg-light rounded border border-dark" style="margin: 20px;" onclick="location.href = 'http://127.0.0.1:5500/article.html?id=${post.id}'">
-                <h3>${post.name}</h3>
-                <small class="text-muted">${post.date}</small>    
-                <p>${post.desc}</p>
-            </div>
-            `;
+        var thepost;
+        posts["posts"].forEach(post => {
+            if (post.id == id) {
+                thepost = post
+                return
+            }
         });
+
+        var content = `<h1>${thepost.name}</h1><small class="text-muted">${thepost.date}</small><br><div>${thepost.content}</div>`
+        document.getElementById("postcontent").innerHTML = content
     </script>
 </body>
 
