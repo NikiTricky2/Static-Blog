@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Article</title>
 
     <link rel="stylesheet" href="main.css">
@@ -51,6 +51,7 @@
         // Read the content
         posts = JSON.parse(document.getElementById("dataExchange").innerHTML)
 
+        // Do a foreach and find the post
         var thepost;
         posts["posts"].forEach(post => {
             if (post.id == id) {
@@ -59,6 +60,7 @@
             }
         });
 
+        // Print out the content
         var content = `<h1>${thepost.name}</h1><small class="text-muted">${thepost.date}</small><br><div>${thepost.content}</div>`
         document.getElementById("postcontent").innerHTML = content
     </script>
