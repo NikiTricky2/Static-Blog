@@ -65,7 +65,8 @@
         // Just a plain forEach loop printing the posts
         posts['posts'].forEach(post => {
             document.getElementById("list").innerHTML = `
-            <div class="container bg-light rounded border border-dark" style="margin: 20px;" onclick="location.href = 'http://127.0.0.1:5500/article.html?id=${post.id}'">
+            <div class="container bg-light rounded border border-dark" style="margin: 20px;" onclick="location.href = '
+https://NikiTricky2.github.io/article.html?id=${post.id}'">
                 <h3>${post.name}</h3>
                 <small class="text-muted">${post.date}</small>    
                 <p>${post.desc}</p>
